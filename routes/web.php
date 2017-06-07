@@ -16,4 +16,13 @@ Route::get('/', function () {
     return $apps = Application::all();
 });
 
-Route::get('/apply','ApplicationController@index');
+Route::get('/apply/create','ApplicationController@index');
+Route::post('/apply','ApplicationController@store');
+
+Route::get('/dashboard', function () {
+    return view('admin.dashboard');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

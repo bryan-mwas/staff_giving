@@ -16,7 +16,8 @@ class CreateApplicationDetailsTable extends Migration
         Schema::create('application_details', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('application_id')->unsigned();
-            $table->enum('status',['accepted','partial','pending']);
+            $table->text('summary');
+            $table->enum('status',['accepted','pending']);
             $table->integer('amount')->default(0);
             $table->date('effective_date');
             $table->date('expiry_date');

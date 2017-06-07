@@ -16,9 +16,14 @@ class CreateApplicationsTable extends Migration
         Schema::create('applications', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->enum('aid_type',['fees','stipend','accomodation']);
-            $table->string('aid_other')->nullable();
-            $table->integer('amount');
+            $table->enum('fund_type',['fees','stipend','accommodation']);
+            $table->string('helb');
+            $table->string('helb_status');
+            $table->string('helb_upload')->nullable();
+            $table->integer('crb');
+            $table->integer('crb_status');
+            $table->string('crb_upload')->nullable();
+            $table->string('application_upload');
             $table->timestamps();
         });
     }
