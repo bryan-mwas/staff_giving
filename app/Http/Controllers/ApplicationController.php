@@ -42,20 +42,20 @@ class ApplicationController extends Controller
         if($request->hasFile('helb_upload')) {
             $helb = $request->file('helb_upload');
             $helb_ext = $helb->guessClientExtension();
-            $helb_path = $helb->storeAs('uploads/'.$auth_user->id, 'helb.'.$helb_ext);
+            $helb_path = $helb->storeAs('/uploads/helb', $auth_user->id.'-helb.'.$helb_ext);
         }
 
         if($request->hasFile('crb_upload')) {
             $crb = $request->file('crb_upload');
             $crb_ext = $crb->guessClientExtension();
-            $crb_path = $crb->storeAs('uploads/'.$auth_user->id, 'crb.'.$crb_ext);
+            $crb_path = $crb->storeAs('uploads/crb', $auth_user->id.'-crb.'.$crb_ext);
         }
 
 
         if($request->hasFile('application_upload')){
             $application_file = $request->file('application_upload');
             $application_ext = $application_file->guessClientExtension();
-            $application_path = $application_file->storeAs('uploads/'.$auth_user->id, 'application.'.$application_ext);
+            $application_path = $application_file->storeAs('uploads/application', $auth_user->id.'-application.'.$application_ext);
         }
 
         $application->user_id = $auth_user->id;
@@ -72,6 +72,6 @@ class ApplicationController extends Controller
 
         $application->save();
 
-        return back();
+        return redirect('dashboard');
     }
 }

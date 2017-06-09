@@ -15,7 +15,7 @@ class CreateApplicationsTable extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned();
             $table->enum('fund_type',['fees','stipend','accommodation']);
             $table->string('helb');
             $table->string('helb_status');
@@ -25,6 +25,7 @@ class CreateApplicationsTable extends Migration
             $table->string('crb_upload')->nullable();
             $table->string('application_upload');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
