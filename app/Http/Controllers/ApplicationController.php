@@ -25,6 +25,7 @@ class ApplicationController extends Controller
      */
     public function store(Request $request)
     {
+//        Validate the form fields
         $this->validate($request, [
             'fund_type' => 'required',
             'helb' => 'required',
@@ -32,6 +33,7 @@ class ApplicationController extends Controller
             'crb' => 'required',
             'crb_status' => 'required'
         ]);
+
         $application = new Application;
         $auth_user = Auth::user();
 

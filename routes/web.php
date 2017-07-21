@@ -24,5 +24,6 @@ Route::get('/apply/create','ApplicationController@index');
 Route::post('/apply','ApplicationController@store');
 
 Route::get('/dashboard', 'AdminController@index');
+Route::get('/applications', 'AdminController@applications');
 
 

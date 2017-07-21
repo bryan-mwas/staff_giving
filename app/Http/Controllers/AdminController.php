@@ -21,6 +21,14 @@ class AdminController extends Controller
         return View('admin.dashboard', compact('data'));
     }
 
+    public function applications()
+    {
+        $application = Application::all();
+        // Get all the applications and their associated users
+        $data = $application->load('user');
+        return View('admin.application_view', compact('data'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
