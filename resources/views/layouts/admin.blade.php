@@ -31,10 +31,10 @@
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Settings</a>
+                <a class="nav-link" href="{{ url('/dashboard') }}">Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Profile</a>
+                <a class="nav-link" href="{{ url('/applications') }}">Applications</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Help</a>
@@ -48,25 +48,26 @@
 </nav>
 
 <div class="container-fluid">
-    <div class="row">
-        <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
-            <ul class="nav nav-pills flex-column">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/dashboard') }}">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/applications') }}">Applications</a>
-                </li>
+    <div class="row align-items-center">
+        {{--<nav class="col-sm-3 col-md-2 hidden-xs-down sidebar">--}}
+            {{--<ul class="nav nav-pills flex-column">--}}
+                {{--<li class="nav-item">--}}
+                    {{--<a class="nav-link" href="{{ url('/dashboard') }}">Dashboard</a>--}}
+                {{--</li>--}}
+                {{--<li class="nav-item">--}}
+                    {{--{{ (current_page("applications")) ? 'class="nav-link"' : 'class="nav-link active"'}}--}}
+                    {{--<a class="nav-link" href="{{ url('/applications') }}">Applications</a>--}}
+                {{--</li>--}}
                 {{--<li class="nav-item">--}}
                     {{--<a class="nav-link" href="#">Analytics</a>--}}
                 {{--</li>--}}
                 {{--<li class="nav-item">--}}
                     {{--<a class="nav-link" href="#">Export</a>--}}
                 {{--</li>--}}
-            </ul>
-        </nav>
-
-        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+            {{--</ul>--}}
+        {{--</nav>--}}
+        {{--INTIAL VALUES: "col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3" --}}
+        <main>
             @yield('content')
         </main>
     </div>

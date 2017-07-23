@@ -17,7 +17,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', function () {
-    return $apps = Application::all();
+    return $apps = Application::all()->count();
 });
 
 Route::get('/apply/create','ApplicationController@index');
