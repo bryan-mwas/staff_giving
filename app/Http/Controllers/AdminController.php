@@ -9,10 +9,6 @@ use App\ApplicationDetail;
 
 class AdminController extends Controller
 {
-    public function current_page($uri="/")
-    {
-        return request()->path() == $uri;
-    }
     /**
      * Display a listing of the resource.
      *
