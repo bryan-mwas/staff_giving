@@ -7,7 +7,8 @@
 </head>
 <body>
 @include('layouts.navigation_bar')
-<div class="container-fluid">
+@yield('styles')
+<div class="container">
     @yield('content')
 </div>
 <!-- scripts go here -->

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateApplicationDetailsTable extends Migration
+class CreateApplicationReviewTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,17 @@ class CreateApplicationDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('application_details', function (Blueprint $table) {
+        Schema::create('application_review', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('application_id')->unsigned();
-            $table->text('comments');
-            $table->enum('status',['accepted','rejected']);
+            $table->text('comments')->nullable();
+            $table->enum('status',['accepted','rejected','pending']);
             $table->integer('amount')->default(0);
-            $table->date('effective_date');
-            $table->date('expiry_date');
+            $table->date('effective_date')->nullable();
+            $table->date('expiry_date')->nullable();
+            $table->enum('stage',['submitted','review','completion']);
             $table->timestamps();
-            $table->foreign('application_id')->references('id')->on('applications');
+            $table->foreign('application_id')->references('id')->on('staff');
         });
     }
 

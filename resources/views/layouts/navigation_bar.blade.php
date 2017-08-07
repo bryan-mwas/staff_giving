@@ -11,8 +11,8 @@
         <ul class="navbar-nav pull-1">
             <!-- Authentication Links -->
             @if (Auth::guest())
-                <li class="nav-item"><a href="{{ route('login') }}">Login</a></li>
-                <li class="nav-item"><a href="{{ route('register') }}">Register</a></li>
+                <li class="nav-item"><a class="text-white" href="{{ route('login') }}">Login</a></li>&nbsp;&nbsp;
+                <li class="nav-item"><a class="text-white" href="{{ route('register') }}">Register</a></li>
             @else
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" style="color: #f7f7f9;" href="#" id="navbarDropdownMenuLink"

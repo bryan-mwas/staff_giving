@@ -27,6 +27,14 @@ class CreateApplicationsTable extends Migration
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
         });
+//        Trigger
+        DB::unprepared('
+        CREATE TRIGGER tr_new_Application_Details AFTER INSERT ON `staff` FOR EACH ROW
+        BEGIN
+         INSERT INTO application_details (`application_id`,`status`,`stage`) 
+         VALUES (NEW.id, "pending", "submitted");
+        END
+        ');
     }
 
     /**

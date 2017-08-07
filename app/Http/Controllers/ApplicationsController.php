@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use App\Application;
 use Illuminate\Support\Facades\Auth;
 
-class ApplicationController extends Controller
+class ApplicationsController extends Controller
 {
     // One has to be logged in.
     public function __construct()
@@ -15,7 +15,7 @@ class ApplicationController extends Controller
 
     public function index()
     {    
-        return View('application.apply',compact('apps'));
+        return View('students.apply',compact('apps'));
     }
 
     /**

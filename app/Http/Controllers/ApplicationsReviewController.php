@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Application;
 use Illuminate\Http\Request;
 
-use App\Application;
-use App\ApplicationDetail;
-
-class AdminController extends Controller
+class ApplicationsReviewController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,23 +14,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $application = Application::all();
-        // Get all the applications and their associated users
-        $data = $application->load('user');
-        // Returns number of accepted applications
-        ApplicationDetail::all()->where('status','accepted')->count();
-        // Returns number of pending applications
-        ApplicationDetail::all()->whereNotIn('status','accepted')->count();
-        return View('admin.dashboard', compact('data'));
-    }
-
-    public function applications()
-    {
-//        $application = Application::all();
-//        // Get all the applications and their associated users
-//        $data = $application->load('user');
-////        return View('admin.application_view', compact('data'));
-//        return $data;
+        $applications = Application::all();
+        $data = $applications->load('user');    // Get the applicant
+        return View('staff.home', compact('data'));
     }
 
     /**
@@ -64,7 +48,9 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        //
+        // Retrieve a model by its primary key...
+        $application = Application::findOrFail($id);
+        return View('staff.review', compact('application'));
     }
 
     /**
