@@ -8,7 +8,6 @@
     </style>
 @endsection
 @section('content')
-    <pre>{{$application}}</pre>
     <div class="card">
         <div class="card-header bg-primary text-white">
             Applicant's Information
