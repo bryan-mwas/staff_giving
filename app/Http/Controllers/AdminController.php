@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Application;
-use App\ApplicationDetail;
+use App\ApplicationReview;
 
 class AdminController extends Controller
 {
@@ -20,9 +20,9 @@ class AdminController extends Controller
         // Get all the applications and their associated users
         $data = $application->load('user');
         // Returns number of accepted applications
-        ApplicationDetail::all()->where('status','accepted')->count();
+        ApplicationReview::all()->where('status','accepted')->count();
         // Returns number of pending applications
-        ApplicationDetail::all()->whereNotIn('status','accepted')->count();
+        ApplicationReview::all()->whereNotIn('status','accepted')->count();
         return View('admin.dashboard', compact('data'));
     }
 

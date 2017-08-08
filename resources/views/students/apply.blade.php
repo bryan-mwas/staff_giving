@@ -5,9 +5,6 @@
 @section('content')
 <br/>
 <br/>
-@if(Session::has('success_message'))
-    @include('layouts.alerts')
-@endif
 <form method="post" action="/apply" enctype="multipart/form-data">
     {{ csrf_field() }}
   <fieldset class="col-md-8 offset-md-2 justify-content-center">
@@ -18,11 +15,11 @@
           <div class="card-block">
               <div class="form-group">
                   <label class="col-form-label" for="fundType">Which type of fund do you seek?</label>
-                  <select class="form-control" name="fund_type" id="fundType" required>
+                  <select class="form-control" name="aid_id" id="fundType" required>
                       <option selected value="">Select</option>
-                      <option value="accommodation">Accommodation</option>
-                      <option value="fees">Fees</option>
-                      <option value="stipend">Stipend</option>
+                      <option value="1">Accommodation</option>
+                      <option value="2">Fees</option>
+                      <option value="3">Stipend</option>
                   </select>
               </div>
               <div class="form-group">
@@ -78,17 +75,7 @@
                       <small id="fileHelp" class="form-text text-muted">Upload your application letter here.</small>
                   </div>
               </div>
-              {{-- Displays errors --}}
-              @if (count($errors) > 0)
-                  @foreach ($errors->all() as $error)
-                      <div class="alert alert-danger" role="alert">
-                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                          </button>
-                          <strong>Error!</strong> {{$error}}
-                      </div>
-                  @endforeach
-              @endif
+              @include('layouts.errors')
           </div>
           <div class="card-footer text-muted">
               <div class="form-group row justify-content-end" style="margin-bottom: auto;">

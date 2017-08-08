@@ -26,4 +26,6 @@ Route::post('/apply','ApplicationsController@store');
 Route::get('/applications', 'ApplicationsReviewController@index');
 Route::get('/applications/review/{id}', 'ApplicationsReviewController@show');
 
+Route::post('application/review','ApplicationsReviewController@update');
+
 

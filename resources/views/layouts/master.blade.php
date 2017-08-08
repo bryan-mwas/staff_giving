@@ -9,6 +9,10 @@
 @include('layouts.navigation_bar')
 @yield('styles')
 <div class="container">
+    @if(Session::has('success_message'))
+        <br>
+        @include('layouts.alerts')
+    @endif
     @yield('content')
 </div>
 <!-- scripts go here -->

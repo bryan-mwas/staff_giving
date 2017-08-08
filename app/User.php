@@ -32,6 +32,6 @@ class User extends Authenticatable
     }
 
     public function application_details() {
-        return $this->hasMany(ApplicationDetail::class);
+        return $this->hasMany(ApplicationReview::class);
     }
 }

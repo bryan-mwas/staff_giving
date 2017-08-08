@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Application;
+use App\ApplicationReview;
 use Illuminate\Http\Request;
 
 class ApplicationsReviewController extends Controller
@@ -15,7 +16,7 @@ class ApplicationsReviewController extends Controller
     public function index()
     {
         $applications = Application::all();
-        $data = $applications->load('user');    // Get the applicant
+        $data = $applications->load('user', 'review');    // Get the applicant and review of each application
         return View('staff.home', compact('data'));
     }
 
@@ -32,7 +33,7 @@ class ApplicationsReviewController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -43,7 +44,7 @@ class ApplicationsReviewController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -56,7 +57,7 @@ class ApplicationsReviewController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -67,19 +68,37 @@ class ApplicationsReviewController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $this->validate($request, [
+            'comments' => 'required',
+            'status' => 'required'
+        ]);
+
+        $application_review = ApplicationReview::findOrFail($request->application_review_id);
+
+        $application_review->comments = $request->comments;
+        $application_review->status = $request->status;
+        $application_review->stage = 'review';
+//        TODO: Determine where to place the date of effectivity
+//        $application->effective_date = $request->effective_date;
+//        $application->expiry_date = $request->expiry_date;
+
+        $application_review->save();
+
+        $request->session()->flash('success_message', 'The application review was successful');
+
+        return redirect('/applications');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

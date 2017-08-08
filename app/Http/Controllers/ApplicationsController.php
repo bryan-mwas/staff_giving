@@ -27,7 +27,7 @@ class ApplicationsController extends Controller
     {
 //        Validate the form fields
         $this->validate($request, [
-            'fund_type' => 'required',
+            'aid_id' => 'required',
             'helb' => 'required',
             'helb_status' => 'required',
             'crb' => 'required',
@@ -61,7 +61,7 @@ class ApplicationsController extends Controller
         }
 
         $application->user_id = $auth_user->id;
-        $application->fund_type = $request->fund_type;
+        $application->aid_id = $request->aid_id;
         $application->helb = $request->helb;
         $application->helb_status = $request->helb_status;
         $application->helb_upload = $helb_path;
@@ -70,9 +70,9 @@ class ApplicationsController extends Controller
         $application->crb_upload = $crb_path;
         $application->application_upload = $application_path;
 
-        $request->session()->flash('success_message', 'The application was successful!');
-
         $application->save();
+
+        $request->session()->flash('success_message', 'The application was successful!');
 
         return redirect('dashboard');
     }

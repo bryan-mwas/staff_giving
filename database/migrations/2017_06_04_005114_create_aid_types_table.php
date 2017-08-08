@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFinancialAidLookupTable extends Migration
+class CreateAidTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFinancialAidLookupTable extends Migration
      */
     public function up()
     {
-        Schema::create('financial_aid_lookup', function (Blueprint $table) {
+        Schema::create('aid_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->integer('amount');

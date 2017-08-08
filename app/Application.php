@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Application extends Model
 {
     //
-    public function details()
+    public function review()
     {
-        return $this->hasOne(ApplicationDetail::class);
+        return $this->hasOne(ApplicationReview::class);
     }
 
     // An application belongs to a user
