@@ -17,6 +17,7 @@ class CreateFinancialAidLookupTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('amount');
+            $table->integer('months_valid');
             $table->timestamps();
         });
     }

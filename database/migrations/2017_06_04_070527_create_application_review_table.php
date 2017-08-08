@@ -23,7 +23,7 @@ class CreateApplicationReviewTable extends Migration
             $table->date('expiry_date')->nullable();
             $table->enum('stage',['submitted','review','completion']);
             $table->timestamps();
-            $table->foreign('application_id')->references('id')->on('staff');
+            $table->foreign('application_id')->references('id')->on('applications');
         });
     }
 

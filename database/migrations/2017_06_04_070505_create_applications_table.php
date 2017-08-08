@@ -29,7 +29,7 @@ class CreateApplicationsTable extends Migration
         });
 //        Trigger
         DB::unprepared('
-        CREATE TRIGGER tr_new_Application_Details AFTER INSERT ON `staff` FOR EACH ROW
+        CREATE TRIGGER tr_new_Application_Details AFTER INSERT ON `applications` FOR EACH ROW
         BEGIN
          INSERT INTO application_details (`application_id`,`status`,`stage`) 
          VALUES (NEW.id, "pending", "submitted");
