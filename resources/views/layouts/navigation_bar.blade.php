@@ -1,4 +1,4 @@
-<nav class="navbar navbar-toggleable-md navbar-inverse bg-primary">
+<nav class="navbar navbar-expand navbar-dark" style="background-color: #3F51B5;">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
             data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -8,7 +8,7 @@
 
     <div class="collapse navbar-collapse" id="navigation">
         <ul class="navbar-nav mr-auto mt-2 mt-md-0"></ul>
-        <ul class="navbar-nav pull-1">
+        <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
             <!-- Authentication Links -->
             @if (Auth::guest())
                 <li class="nav-item"><a class="text-white" href="{{ route('login') }}">Login</a></li>&nbsp;&nbsp;
@@ -19,7 +19,7 @@
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ Auth::user()->name }}
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink"
                          style="min-width: 0rem !important;">
                         <a href="{{ route('logout') }}" class="dropdown-item"
                            onclick="event.preventDefault();

@@ -16,27 +16,19 @@ class CreateApplicationsTable extends Migration
         Schema::create('applications', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('aid_id')->unsigned();
-            $table->string('helb');
-            $table->string('helb_status');
-            $table->string('helb_upload')->nullable();
-            $table->integer('crb');
-            $table->integer('crb_status');
-            $table->string('crb_upload')->nullable();
-            $table->string('application_upload');
+            $table->integer('request_type')->unsigned();
+            $table->boolean('is_helb');
+            $table->boolean('is_helb_granted');
+            $table->string('helb_letter_upload')->nullable();
+            $table->boolean('is_crb');
+            $table->boolean('is_crb_granted');
+            $table->string('crb_letter_upload')->nullable();
+            $table->string('application_letter_upload');
+            $table->enum('stage',['submitted','review','complete']);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('aid_id')->references('id')->on('aid_types');
+            $table->foreign('request_type')->references('id')->on('financial_aid_types');
         });
-
-//        Trigger
-        DB::unprepared('
-        CREATE TRIGGER tr_new_Application_Details AFTER INSERT ON `applications` FOR EACH ROW
-        BEGIN
-         INSERT INTO application_reviews (`application_id`,`status`,`stage`) 
-         VALUES (NEW.id, "pending", "submitted");
-        END
-        ');
     }
 
     /**

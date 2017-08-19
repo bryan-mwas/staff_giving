@@ -77,14 +77,14 @@
                     <label for="commentArea"><h6>Approval Status</h6></label>
                     {{--<br>--}}
                     {{--<label class="custom-control custom-radio">--}}
-                        {{--<input id="radio1" name="status" type="radio" class="custom-control-input">--}}
-                        {{--<span class="custom-control-indicator"></span>--}}
-                        {{--<span class="custom-control-description">Accepted</span>--}}
+                    {{--<input id="radio1" name="status" type="radio" class="custom-control-input">--}}
+                    {{--<span class="custom-control-indicator"></span>--}}
+                    {{--<span class="custom-control-description">Accepted</span>--}}
                     {{--</label>--}}
                     {{--<label class="custom-control custom-radio">--}}
-                        {{--<input id="radio2" name="status" type="radio" class="custom-control-input">--}}
-                        {{--<span class="custom-control-indicator"></span>--}}
-                        {{--<span class="custom-control-description">Rejected</span>--}}
+                    {{--<input id="radio2" name="status" type="radio" class="custom-control-input">--}}
+                    {{--<span class="custom-control-indicator"></span>--}}
+                    {{--<span class="custom-control-description">Rejected</span>--}}
                     {{--</label>--}}
                     <select name="status" id="" class="form-control">
                         <option selected>Select One</option>
