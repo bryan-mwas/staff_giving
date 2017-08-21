@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Application;
-use App\ApplicationReview;
+use App\FinancialAidRecommendation;
 use Illuminate\Http\Request;
 
 class ApplicationsReviewController extends Controller
@@ -79,7 +79,7 @@ class ApplicationsReviewController extends Controller
             'status' => 'required'
         ]);
 
-        $application_review = ApplicationReview::findOrFail($request->application_review_id);
+        $application_review = FinancialAidRecommendation::findOrFail($request->application_review_id);
 
         $application_review->comments = $request->comments;
         $application_review->status = $request->status;

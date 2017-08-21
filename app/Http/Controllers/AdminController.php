@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Application;
-use App\ApplicationReview;
+use App\FinancialAidRecommendation;
 
 class AdminController extends Controller
 {
@@ -20,9 +20,9 @@ class AdminController extends Controller
         // Get all the applications and their associated users
         $data = $application->load('user');
         // Returns number of accepted applications
-        ApplicationReview::all()->where('status','accepted')->count();
+        FinancialAidRecommendation::all()->where('status','accepted')->count();
         // Returns number of pending applications
-        ApplicationReview::all()->whereNotIn('status','accepted')->count();
+        FinancialAidRecommendation::all()->whereNotIn('status','accepted')->count();
         return View('admin.dashboard', compact('data'));
     }
 

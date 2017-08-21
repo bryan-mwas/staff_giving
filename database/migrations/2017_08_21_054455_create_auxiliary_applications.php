@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateApplicationsTable extends Migration
+class CreateAuxiliaryApplications extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateApplicationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('applications', function (Blueprint $table) {
+        Schema::create('auxiliary_applications', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('request_type')->unsigned();
-//            $table->integer('application_type')->unsigned();
-            $table->string('application_letter');
-            $table->enum('stage',['submitted','review','complete']);
+            $table->integer('application_type_id')->unsigned();
+            $table->string('upload_path');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('request_type')->references('id')->on('financial_aid_types');
+            $table->foreign('application_type_id')->references('id')->on('application_types');
         });
     }
 
@@ -33,6 +31,6 @@ class CreateApplicationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('applications');
+        Schema::dropIfExists('auxiliary_applications');
     }
 }

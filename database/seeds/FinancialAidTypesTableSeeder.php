@@ -7,7 +7,7 @@
  */
 use Illuminate\Database\Seeder;
 
-class AidTypesTableSeeder extends Seeder
+class FinancialAidTypesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,15 +16,21 @@ class AidTypesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('aid_types')->insert([
+        DB::table('financial_aid_types')->insert([
             'name' => 'fees',
             'amount' => '50000',
             'months_valid' => '3'
         ]);
 
-        DB::table('aid_types')->insert([
+        DB::table('financial_aid_types')->insert([
             'name' => 'stipend',
             'amount' => '6000',
+            'months_valid' => '3'
+        ]);
+
+        DB::table('financial_aid_types')->insert([
+            'name' => 'accommodation',
+            'amount' => null,
             'months_valid' => '3'
         ]);
     }

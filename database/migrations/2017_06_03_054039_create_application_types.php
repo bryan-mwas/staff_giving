@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFinancialAidTypesTable extends Migration
+class CreateApplicationTypes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateFinancialAidTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('financial_aid_types', function (Blueprint $table) {
+        Schema::create('application_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('amount')->nullable();
-            $table->integer('months_valid');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateFinancialAidTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('financial_aid_types');
+        Schema::dropIfExists('application_types');
     }
 }

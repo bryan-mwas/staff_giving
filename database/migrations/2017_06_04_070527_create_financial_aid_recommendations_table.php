@@ -22,8 +22,10 @@ class CreateFinancialAidRecommendationsTable extends Migration
             $table->integer('amount')->default(0);
             $table->date('effective_date')->nullable();
             $table->date('expiry_date')->nullable();
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
             $table->foreign('application_id')->references('id')->on('applications');
+            $table->foreign('user_id')->references('id')->on('users');
         });
 
         // Trigger to update application stage to "review".
@@ -45,5 +47,7 @@ class CreateFinancialAidRecommendationsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('financial_aid_recommendations');
+        // Drop the trigger
+        DB::unprepared('DROP TRIGGER `tr_UPDATE_APPLICATION_STAGE`');
     }
 }
