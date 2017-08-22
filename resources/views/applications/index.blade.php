@@ -29,28 +29,28 @@
     <div class="tab-content">
         <div class="tab-pane active" id="new_applications" role="tabpanel">
             {{--<fieldset style="margin-top: 20px; padding: 0px;">--}}
-                <table id="tbl-applications" class="table table-bordered" cellspacing="0" width="100%">
-                    <thead>
-                    <tr>
-                        <th>Student ID</th>
-                        <th>Student name</th>
-                        <th>Request</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($data as $application)
-                        @if($application->review->stage == 'submitted')
+            <table id="tbl-applications" class="table table-bordered" cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Student name</th>
+                    <th>Request</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($data as $application)
+                    @if($application->review->stage == 'submitted')
                         <tr>
                             <td>{{$application->user_id}}</td>
                             <td>{{$application->user->name}}</td>
                             <td>{{$application->fund_type}}</td>
                             <td><a class="btn btn-primary btn-sm" href="{{url('applications/review/'.$application->id)}}">Assess</a></td>
                         </tr>
-                        @endif
-                    @endforeach
-                    </tbody>
-                </table>
+                    @endif
+                @endforeach
+                </tbody>
+            </table>
             {{--</fieldset>--}}
         </div>
         <div class="tab-pane" id="accepted_applications" role="tabpanel">

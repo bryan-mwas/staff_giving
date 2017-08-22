@@ -5,7 +5,7 @@
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your staff. These
+| Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
@@ -20,12 +20,11 @@ Route::get('/', function () {
     return $apps = Application::all()->count();
 });
 
-Route::get('/apply/create','ApplicationsController@index');
-Route::post('/apply','ApplicationsController@store');
+Route::get('/applications/create','ApplicationsController@create');
+Route::post('/applications','ApplicationsController@store');
+Route::get('/applications', 'ApplicationRecommendationsController@index');
 
-Route::get('/applications', 'ApplicationsReviewController@index');
-Route::get('/applications/review/{id}', 'ApplicationsReviewController@show');
-
-Route::post('application/review','ApplicationsReviewController@update');
+Route::get('/recommendations/{id}', 'ApplicationsReviewController@show');
+Route::post('recommendations','ApplicationsReviewController@create');
 
 

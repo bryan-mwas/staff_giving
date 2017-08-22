@@ -33,5 +33,17 @@ class FinancialAidTypesTableSeeder extends Seeder
             'amount' => null,
             'months_valid' => '3'
         ]);
+
+        DB::table('application_types')->insert([
+            'name' => 'helb'
+        ]);
+
+        DB::table('application_types')->insert([
+            'name' => 'crb'
+        ]);
+
+        DB::table('application_types')->insert([
+            'name' => 'workstudy'
+        ]);
     }
 }

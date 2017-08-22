@@ -795,7 +795,7 @@ var app = new Vue({
 /* 9 */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed: ModuleBuildError: Module build failed: \r\nundefined\r\n^\r\n      File to import not found or unreadable: node_modules/bootstrap/scss.\nParent style sheet: stdin\r\n      in C:\\Users\\brian\\Code\\staff_giving\\resources\\assets\\sass\\app.scss (line 9, column 1)\n    at runLoaders (C:\\Users\\brian\\Code\\staff_giving\\node_modules\\webpack\\lib\\NormalModule.js:192:19)\n    at C:\\Users\\brian\\Code\\staff_giving\\node_modules\\loader-runner\\lib\\LoaderRunner.js:364:11\n    at C:\\Users\\brian\\Code\\staff_giving\\node_modules\\loader-runner\\lib\\LoaderRunner.js:230:18\n    at context.callback (C:\\Users\\brian\\Code\\staff_giving\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at Object.asyncSassJobQueue.push [as callback] (C:\\Users\\brian\\Code\\staff_giving\\node_modules\\sass-loader\\lib\\loader.js:55:13)\n    at Object.<anonymous> (C:\\Users\\brian\\Code\\staff_giving\\node_modules\\sass-loader\\node_modules\\async\\dist\\async.js:2244:31)\n    at Object.callback (C:\\Users\\brian\\Code\\staff_giving\\node_modules\\sass-loader\\node_modules\\async\\dist\\async.js:906:16)\n    at options.error (C:\\Users\\brian\\Code\\staff_giving\\node_modules\\node-sass\\lib\\index.js:294:32)");
+throw new Error("Module build failed: ModuleBuildError: Module build failed: \r\nundefined\r\n^\r\n      File to import not found or unreadable: node_modules/bootstrap/scss.\nParent style sheet: stdin\r\n      in C:\\Users\\brian\\Code\\application_giving\\resources\\assets\\sass\\app.scss (line 9, column 1)\n    at runLoaders (C:\\Users\\brian\\Code\\application_giving\\node_modules\\webpack\\lib\\NormalModule.js:192:19)\n    at C:\\Users\\brian\\Code\\application_giving\\node_modules\\loader-runner\\lib\\LoaderRunner.js:364:11\n    at C:\\Users\\brian\\Code\\application_giving\\node_modules\\loader-runner\\lib\\LoaderRunner.js:230:18\n    at context.callback (C:\\Users\\brian\\Code\\application_giving\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at Object.asyncSassJobQueue.push [as callback] (C:\\Users\\brian\\Code\\application_giving\\node_modules\\sass-loader\\lib\\loader.js:55:13)\n    at Object.<anonymous> (C:\\Users\\brian\\Code\\application_giving\\node_modules\\sass-loader\\node_modules\\async\\dist\\async.js:2244:31)\n    at Object.callback (C:\\Users\\brian\\Code\\application_giving\\node_modules\\sass-loader\\node_modules\\async\\dist\\async.js:906:16)\n    at options.error (C:\\Users\\brian\\Code\\application_giving\\node_modules\\node-sass\\lib\\index.js:294:32)");
 
 /***/ }),
 /* 10 */
@@ -32822,7 +32822,7 @@ var Component = __webpack_require__(35)(
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\Users\\brian\\Code\\staff_giving\\resources\\assets\\js\\components\\Example.vue"
+Component.options.__file = "C:\\Users\\brian\\Code\\application_giving\\resources\\assets\\js\\components\\Example.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Example.vue: functional components are not supported with templates, they should use render functions.")}
 

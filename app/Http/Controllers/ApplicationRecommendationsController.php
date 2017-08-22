@@ -6,7 +6,7 @@ use App\Application;
 use App\FinancialAidRecommendation;
 use Illuminate\Http\Request;
 
-class ApplicationsReviewController extends Controller
+class ApplicationRecommendationsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class ApplicationsReviewController extends Controller
      */
     public function index()
     {
-        $applications = Application::all();
-        $data = $applications->load('user', 'review');    // Get the applicant and review of each application
-        return View('staff.home', compact('data'));
+//        $applications = Application::all();
+//        $data = $applications->load('user', 'review');    // Get the applicant and review of each application
+//        return View('applications.index', compact('data'));
     }
 
     /**
@@ -51,7 +51,7 @@ class ApplicationsReviewController extends Controller
     {
         // Retrieve a model by its primary key...
         $application = Application::findOrFail($id);
-        return View('staff.review', compact('application'));
+        return View('recommendations.review', compact('application'));
     }
 
     /**
