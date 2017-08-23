@@ -103,35 +103,6 @@
                 oldInput.parentNode.replaceChild(newInput, oldInput);
             }
 
-            // Get selected option
-            $("#auxiliary_application").change(function () {
-                // show the isGranted <div>
-                var val = $("#auxiliary_application").find(":selected").val();
-                if (val !== 'null') {
-                    $('#isGranted').show();
-                } else {
-                    $("#isGranted").hide();
-//                    $('#is_granted').find('option:first').attr('selected', 'selected'); // reset the value to the default
-                    $('#is_granted').get(0).selectedIndex = 0;
-
-                    $("#attachmentUpload").hide();
-                    clearFileInput('attachment_upload');
-                    // todo: empty the values in the above.
-                }
-            });
-            // if granted, attach proof.
-            $("#is_granted").change(function () {
-                var val = $("#is_granted").find(":selected").val();
-                if (val === '1') {
-                    $("#attachmentUpload").show();
-                }
-                else if(val === '0') {
-                    $("#attachmentUpload").hide();
-                    clearFileInput('attachment_upload');
-                    // todo: figure out how to remove attachment
-                }
-            });
-
             $(".form-check-input").click(function () {
                 $(this).each(function () {
                     var id = $(this).attr('id');
@@ -139,10 +110,11 @@
                     var radioValue = $("input[name='"+name+"']:checked").val();
                     console.log(radioValue);
                     if(radioValue !== '') {
-                        console.log('Good Job');
+//                        console.log('Good Job');
                         $("#"+name.substring(3)+"_upload").prop('disabled',false);
                     }
                     else {
+                        clearFileInput(name.substring(3)+"_upload");
                         $("#"+name.substring(3)+"_upload").prop('disabled',true);
                     }
                 });

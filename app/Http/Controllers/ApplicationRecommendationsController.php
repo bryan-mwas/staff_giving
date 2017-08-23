@@ -15,9 +15,10 @@ class ApplicationRecommendationsController extends Controller
      */
     public function index()
     {
-//        $applications = Application::all();
+        $applications = Application::all();
 //        $data = $applications->load('user', 'review');    // Get the applicant and review of each application
-//        return View('applications.index', compact('data'));
+
+        return View('applications.index', compact('applications'));
     }
 
     /**
@@ -51,7 +52,10 @@ class ApplicationRecommendationsController extends Controller
     {
         // Retrieve a model by its primary key...
         $application = Application::findOrFail($id);
-        return View('recommendations.review', compact('application'));
+        $previous_applications = $application->user->auxiliary_application;
+
+//        return $application->user->auxiliary_application;
+        return View('recommendations.create', compact('application', 'previous_applications'));
     }
 
     /**

@@ -20,7 +20,7 @@ class Application extends Model
     // An application belongs to a financial aid type
     public function financial_aid_type()
     {
-        return $this->belongsTo(FinancialAidType::class);
+        return $this->belongsTo(FinancialAidType::class, 'request_type');
     }
 
     // An application belongs to a user

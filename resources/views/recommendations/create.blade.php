@@ -14,14 +14,14 @@
             Applicant's Information
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item no-bottom-pad"><h6>Student Name: <span class="badge badge-default"
+            <li class="list-group-item no-bottom-pad"><h6>Student Name: <span class="badge badge-dark"
                                                                               style="font-size: 14px;">{{$application->user->name}}</span>
                 </h6></li>
-            <li class="list-group-item no-bottom-pad"><h6>Student Email: <span class="badge badge-default"
+            <li class="list-group-item no-bottom-pad"><h6>Student Email: <span class="badge badge-dark"
                                                                                style="font-size: 14px;">{{$application->user->email}}</span>
                 </h6></li>
-            <li class="list-group-item no-bottom-pad"><h6>Requested Funds: <span class="badge badge-default"
-                                                                                 style="font-size: 14px;">{{strtoupper($application->fund_type)}}</span>
+            <li class="list-group-item no-bottom-pad"><h6>Requested Funds: <span class="badge badge-dark"
+                                                                                 style="font-size: 14px;">{{strtoupper($application->financial_aid_type->name)}}</span>
                 </h6></li>
         </ul>
     </div>
@@ -34,30 +34,21 @@
             <li class="list-group-item no-bottom-pad">
                 <h6>Application Letter:
                     <a class="btn btn-primary btn-sm"
-                       href="{{Storage::disk('local')->url($application->application_upload)}}">
+                       href="{{Storage::disk('local')->url($application->application_letter)}}">
                         <i class="fa fa-eye" aria-hidden="true"></i> Application
                     </a>
                 </h6>
             </li>
-            {{--ONLY SHOW LINK TO DOWNLOAD/VIEW HELB UPLOAD IF APPLICANT HAD APPLIED AND WAS GRANTED HELB--}}
-            @if($application->helb && $application->helb_status)
-                <li class="list-group-item no-bottom-pad">
-                    <h6>HELB Letter:
-                        <a class="btn btn-primary btn-sm"
-                           href="{{Storage::disk('local')->url($application->helb_upload)}}">
-                            <i class="fa fa-eye" aria-hidden="true"></i> HELB
-                        </a></h6></li>
-            @endif
-            {{--ONLY SHOW LINK TO DOWNLOAD/VIEW CRB UPLOAD IF APPLICANT HAD APPLIED AND WAS GRANTED CRB--}}
-            @if($application->crb && $application->crb_status)
-                <li class="list-group-item no-bottom-pad">
-                    <h6>CRB Letter:
-                        <a class="btn btn-primary btn-sm"
-                           href="{{Storage::disk('local')->url($application->crb_upload)}}">
-                            <i class="fa fa-eye" aria-hidden="true"></i> CRB
-                        </a>
-                    </h6></li>
-            @endif
+            @foreach($previous_applications as $previous)
+            <li class="list-group-item no-bottom-pad">
+                <h6>{{$previous->application_type->name}} Letter:
+                    <a class="btn btn-primary btn-sm"
+                       href="{{Storage::disk('local')->url($previous->upload_path)}}">
+                        <i class="fa fa-eye" aria-hidden="true"></i> Letter
+                    </a>
+                </h6>
+            </li>
+            @endforeach
         </ul>
     </div>
     <br>
@@ -66,7 +57,7 @@
         <div class="card-header bg-primary text-white">
             For Official Use
         </div>
-        <div class="card-block">
+        <div class="card-body">
             <form method="post" action="/application/review">
                 {{csrf_field()}}
                 <div class="form-group">
@@ -92,7 +83,7 @@
                         <option value="rejected">Reject</option>
                     </select>
                 </div>
-                <input type="hidden" value="{{$application->review->id}}" name="application_review_id">
+                <input type="hidden" value="{{$application->id}}" name="application_review_id">
                 <button type="submit" class="btn btn-primary">Submit</button>
                 @include('layouts.errors')
             </form>

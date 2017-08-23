@@ -24,7 +24,7 @@ Route::get('/applications/create','ApplicationsController@create');
 Route::post('/applications','ApplicationsController@store');
 Route::get('/applications', 'ApplicationRecommendationsController@index');
 
-Route::get('/recommendations/{id}', 'ApplicationsReviewController@show');
-Route::post('recommendations','ApplicationsReviewController@create');
+Route::get('/recommendations/{id}', 'ApplicationRecommendationsController@show');
+Route::post('recommendations','ApplicationRecommendationsController@create');
 
 

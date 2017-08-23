@@ -31,6 +31,10 @@ class User extends Authenticatable
         return $this->hasOne(Application::class);
     }
 
+    public function auxiliary_application() {
+        return $this->hasMany(AuxiliaryApplication::class);
+    }
+
     // A financial aid user makes many recommendations
     public function financial_aid_recommendation()
     {

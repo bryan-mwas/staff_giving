@@ -21,7 +21,7 @@
             <a class="nav-link" data-toggle="tab" href="#accepted_applications" role="tab">Accepted</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#pending_applications" role="tab">Rejected</a>
+            <a class="nav-link" data-toggle="tab" href="#rejected_applications" role="tab">Rejected</a>
         </li>
     </ul>
 
@@ -39,13 +39,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($data as $application)
-                    @if($application->review->stage == 'submitted')
+                @foreach($applications as $application)
+                    @if($application->stage == 'submitted')
                         <tr>
-                            <td>{{$application->user_id}}</td>
+                            <td>{{$application->user->id}}</td>
                             <td>{{$application->user->name}}</td>
-                            <td>{{$application->fund_type}}</td>
-                            <td><a class="btn btn-primary btn-sm" href="{{url('applications/review/'.$application->id)}}">Assess</a></td>
+                            <td>{{$application->financial_aid_type->name}}</td>
+                            <td><a class="btn btn-primary btn-sm" href="{{url('recommendations/'.$application->id)}}">Assess</a></td>
                         </tr>
                     @endif
                 @endforeach
@@ -64,20 +64,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($data as $application)
-                    @if($application->review->status == 'accepted')
+                @foreach($applications as $application)
+                    @if($application->stage == 'submitted')
                         <tr>
-                            <td>{{$application->user_id}}</td>
+                            <td>{{$application->user->id}}</td>
                             <td>{{$application->user->name}}</td>
-                            <td>{{$application->fund_type}}</td>
-                            <td><a class="btn btn-primary btn-sm" href="{{url('applications/review/'.$application->id)}}">Assess</a></td>
+                            <td>{{$application->financial_aid_type->name}}</td>
+                            <td><a class="btn btn-primary btn-sm" href="{{url('recommendations/'.$application->id)}}">Assess</a></td>
                         </tr>
                     @endif
                 @endforeach
                 </tbody>
             </table>
         </div>
-        <div class="tab-pane" id="pending_applications" role="tabpanel">
+        <div class="tab-pane" id="rejected_applications" role="tabpanel">
             <table id="tbl-pending" class="table table-bordered" cellspacing="0" width="100%">
                 <thead>
                 <tr>
@@ -88,13 +88,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($data as $application)
-                    @if($application->review->status == 'rejected')
+                @foreach($applications as $application)
+                    @if($application->stage == 'submitted')
                         <tr>
-                            <td>{{$application->user_id}}</td>
+                            <td>{{$application->user->id}}</td>
                             <td>{{$application->user->name}}</td>
-                            <td>{{$application->fund_type}}</td>
-                            <td><a class="btn btn-primary btn-sm" href="{{url('applications/review/'.$application->id)}}">Assess</a></td>
+                            <td>{{$application->financial_aid_type->name}}</td>
+                            <td><a class="btn btn-primary btn-sm" href="{{url('recommendations/'.$application->id)}}">Assess</a></td>
                         </tr>
                     @endif
                 @endforeach
