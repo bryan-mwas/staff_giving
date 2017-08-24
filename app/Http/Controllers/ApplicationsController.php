@@ -6,6 +6,7 @@ use App\Application;
 use App\ApplicationType;
 use App\AuxiliaryApplication;
 use App\FinancialAidType;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +15,7 @@ class ApplicationsController extends Controller
     // One has to be logged in.
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     public function index()
@@ -22,6 +23,16 @@ class ApplicationsController extends Controller
         $applications = Application::all();
         $data = $applications->load('user', 'review');    // Get the applicant and review of each application
         return View('applications.index', compact('data'));
+    }
+
+    public function show(User $user)
+    {
+        $current_application = $user->application;
+        $previous_applications = $user->auxiliary_application;
+//        return $previous_applications;
+//        $applications = Application::all();
+//        $data = $applications->load('user', 'review');    // Get the applicant and review of each application
+        return View('applications.show', compact('current_application','previous_applications'));
     }
 
     public function create()

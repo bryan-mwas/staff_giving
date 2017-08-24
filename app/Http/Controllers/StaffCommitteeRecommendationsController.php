@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Application;
 use App\FinancialAidRecommendation;
+use App\FinancialAidType;
+use App\StaffCommitteeRecommendation;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class ApplicationRecommendationsController extends Controller
+class StaffCommitteeRecommendationsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,23 +42,42 @@ class ApplicationRecommendationsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'comments' => 'required',
+        ]);
+
+        $application_review = new StaffCommitteeRecommendation;
+        $financial_aid_type = FinancialAidType::findOrFail($request->financial_aid_type_id);
+
+        $application_review->comments = $request->comments;
+        $application_review->recommendation = $request->recommendation;
+        $application_review->application_id = $request->application_id;
+        $application_review->user_id = 2;
+
+        // The date of effectivity is done programmatically.
+//        $application_review->effective_date = Carbon::now()->addWeek()->toDateString();
+//        $application_review->expiry_date = Carbon::now()->addMonths($financial_aid_type->months_valid)->toDateString();
+
+        $application_review->save();
+
+        $request->session()->flash('success_message', 'The recommendation has been saved successfully');
+
+        return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param Application $application
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
-    public function show($id)
+    public function show(Application $application)
     {
-        // Retrieve a model by its primary key...
-        $application = Application::findOrFail($id);
+
         $previous_applications = $application->user->auxiliary_application;
 
-//        return $application->user->auxiliary_application;
-        return View('recommendations.create', compact('application', 'previous_applications'));
+        return View('recommendations.staff_committee.create', compact('application', 'previous_applications'));
     }
 
     /**
@@ -78,25 +100,6 @@ class ApplicationRecommendationsController extends Controller
     public function update(Request $request)
     {
         //
-        $this->validate($request, [
-            'comments' => 'required',
-            'status' => 'required'
-        ]);
-
-        $application_review = FinancialAidRecommendation::findOrFail($request->application_review_id);
-
-        $application_review->comments = $request->comments;
-        $application_review->status = $request->status;
-        $application_review->stage = 'review';
-//        TODO: Determine where to place the date of effectivity
-//        $application->effective_date = $request->effective_date;
-//        $application->expiry_date = $request->expiry_date;
-
-        $application_review->save();
-
-        $request->session()->flash('success_message', 'The application review was successful');
-
-        return redirect('/applications');
     }
 
     /**

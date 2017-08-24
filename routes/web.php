@@ -21,10 +21,14 @@ Route::get('/', function () {
 });
 
 Route::get('/applications/create','ApplicationsController@create');
+Route::get('/applications/{user}','ApplicationsController@show');
 Route::post('/applications','ApplicationsController@store');
 Route::get('/applications', 'ApplicationRecommendationsController@index');
 
-Route::get('/recommendations/{id}', 'ApplicationRecommendationsController@show');
-Route::post('recommendations','ApplicationRecommendationsController@create');
+Route::get('/financial-aid/recommend/{application}', 'FinancialAidRecommendationsController@show');  // Route model binding! Yayy!
+Route::post('/financial-aid/recommend','FinancialAidRecommendationsController@store');
 
+// Committee
+Route::get('/committee/recommend/{application}', 'StaffCommitteeRecommendationsController@show');
+Route::post('/committee/recommend', 'StaffCommitteeRecommendationsController@store');
 

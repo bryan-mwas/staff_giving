@@ -3,7 +3,7 @@
 @section('styles')
     <style>
         .no-bottom-pad {
-            padding-bottom: 0px;
+            padding-bottom: 0px !important;
         }
     </style>
 @endsection
@@ -14,13 +14,13 @@
             Applicant's Information
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item no-bottom-pad"><h6>Student Name: <span class="badge badge-dark"
+            <li class="list-group-item no-bottom-pad" style="padding-bottom: 0px;"><h6>Student Name: <span class="badge badge-dark"
                                                                               style="font-size: 14px;">{{$application->user->name}}</span>
                 </h6></li>
-            <li class="list-group-item no-bottom-pad"><h6>Student Email: <span class="badge badge-dark"
+            <li class="list-group-item no-bottom-pad" style="padding-bottom: 0px;"><h6>Student Email: <span class="badge badge-dark"
                                                                                style="font-size: 14px;">{{$application->user->email}}</span>
                 </h6></li>
-            <li class="list-group-item no-bottom-pad"><h6>Requested Funds: <span class="badge badge-dark"
+            <li class="list-group-item no-bottom-pad" style="padding-bottom: 0px;"><h6>Requested Funds: <span class="badge badge-dark"
                                                                                  style="font-size: 14px;">{{strtoupper($application->financial_aid_type->name)}}</span>
                 </h6></li>
         </ul>
@@ -31,7 +31,7 @@
             Attachments
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item no-bottom-pad">
+            <li class="list-group-item no-bottom-pad" style="padding-bottom: 0px;">
                 <h6>Application Letter:
                     <a class="btn btn-primary btn-sm"
                        href="{{Storage::disk('local')->url($application->application_letter)}}">
@@ -40,7 +40,7 @@
                 </h6>
             </li>
             @foreach($previous_applications as $previous)
-            <li class="list-group-item no-bottom-pad">
+            <li class="list-group-item no-bottom-pad" style="padding-bottom: 0px;">
                 <h6>{{$previous->application_type->name}} Letter:
                     <a class="btn btn-primary btn-sm"
                        href="{{Storage::disk('local')->url($previous->upload_path)}}">
@@ -52,38 +52,52 @@
         </ul>
     </div>
     <br>
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            Financial Aid Recommendations
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="commentArea">
+                    <h6>Comments on the application</h6>
+                </label>
+                <textarea id="commentArea" class="form-control" cols="50" rows="5" readonly>{{$application->financial_aid_recommendation->comments}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="commentArea">
+                    <h6>Approval Status</h6>
+                </label>
+                <input class="form-control" value="{{$application->financial_aid_recommendation->recommendation}}" readonly>
+            </div>
+        </div>
+    </div>
+    <br>
     <!-- OFFICIAL USE SECTION -->
     <div class="card">
         <div class="card-header bg-primary text-white">
             For Official Use
         </div>
         <div class="card-body">
-            <form method="post" action="/application/review">
+            <form method="post" action="/committee/recommend">
                 {{csrf_field()}}
                 <div class="form-group">
-                    <label for="commentArea"><h6>Comments on the application</h6></label>
+                    <label for="commentArea">
+                        <h6>Comments on the application</h6>
+                    </label>
                     <textarea id="commentArea" class="form-control" cols="50" rows="5" name="comments"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="commentArea"><h6>Approval Status</h6></label>
-                    {{--<br>--}}
-                    {{--<label class="custom-control custom-radio">--}}
-                    {{--<input id="radio1" name="status" type="radio" class="custom-control-input">--}}
-                    {{--<span class="custom-control-indicator"></span>--}}
-                    {{--<span class="custom-control-description">Accepted</span>--}}
-                    {{--</label>--}}
-                    {{--<label class="custom-control custom-radio">--}}
-                    {{--<input id="radio2" name="status" type="radio" class="custom-control-input">--}}
-                    {{--<span class="custom-control-indicator"></span>--}}
-                    {{--<span class="custom-control-description">Rejected</span>--}}
-                    {{--</label>--}}
-                    <select name="status" id="" class="form-control">
+                    <label for="commentArea">
+                        <h6>Approval Status</h6>
+                    </label>
+                    <select name="recommendation" id="" class="form-control">
                         <option selected>Select One</option>
                         <option value="accepted">Accept</option>
                         <option value="rejected">Reject</option>
                     </select>
                 </div>
-                <input type="hidden" value="{{$application->id}}" name="application_review_id">
+                <input type="hidden" value="{{$application->id}}" name="application_id">
+                <input type="hidden" value="{{$application->financial_aid_type->id}}" name="financial_aid_type_id">
                 <button type="submit" class="btn btn-primary">Submit</button>
                 @include('layouts.errors')
             </form>

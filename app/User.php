@@ -46,4 +46,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(StaffCommitteeRecommendation::class);
     }
+
+    // A user has one role
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }
