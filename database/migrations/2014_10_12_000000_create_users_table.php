@@ -21,6 +21,14 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        // Trigger to update application stage to "review".
+        DB::unprepared('
+        CREATE TRIGGER tr_ASSIGN_USER_ROLE AFTER INSERT ON `users` FOR EACH ROW
+            BEGIN
+             INSERT INTO roles (user_id) VALUES (NEW.id);
+            END
+        ');
     }
 
     /**
@@ -31,5 +39,7 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+        DB::unprepared('DROP TRIGGER `tr_ASSIGN_USER_ROLE`');
+
     }
 }

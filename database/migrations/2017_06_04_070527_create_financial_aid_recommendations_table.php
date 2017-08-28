@@ -17,11 +17,6 @@ class CreateFinancialAidRecommendationsTable extends Migration
             $table->increments('id');
             $table->integer('application_id')->unsigned();
             $table->text('comments')->nullable();
-            $table->enum('recommendation', ['accepted', 'rejected']);
-            $table->boolean('is_accommodation');
-            $table->integer('amount')->default(0);
-            $table->date('effective_date')->nullable();
-            $table->date('expiry_date')->nullable();
             $table->integer('user_id')->unsigned();
             $table->timestamps();
             $table->foreign('application_id')->references('id')->on('applications');

@@ -17,7 +17,6 @@ class CreateApplicationsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('request_type')->unsigned();
-//            $table->integer('application_type')->unsigned();
             $table->string('application_letter');
             $table->enum('stage',['submitted','review','complete']);
             $table->timestamps();
