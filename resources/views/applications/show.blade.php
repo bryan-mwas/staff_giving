@@ -14,24 +14,24 @@
     {{--</div>--}}
     {{--</div>--}}
     <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Application Number: {{$current_application->id}}</h4>
-            <h5 style="text-align: center">Application Review Progress:
-                <span class="badge badge-primary">{{strtoupper($current_application->stage)}}</span>
-            </h5>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25"
-                     aria-valuemin="0" aria-valuemax="100">25%
-                </div>
-            </div>
-            {{--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>--}}
-        </div>
+            <h5 class="card-header bg-primary text-white">Application Number: {{$current_application->id}}</h5>
+            {{-- TODO: Configure this progress bar --}}
+            {{--<div class="progress">--}}
+                {{--<div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25"--}}
+                     {{--aria-valuemin="0" aria-valuemax="100">25%--}}
+                {{--</div>--}}
+            {{--</div>--}}
 
         <ul class="list-group list-group-flush">
+            <li class="list-group-item" style="padding-bottom: 0px;">
+                <h5>Application Review Progress:
+                    <span class="badge badge-success">{{strtoupper($current_application->stage)}}</span>
+                </h5>
+            </li>
             <li class="list-group-item no-bottom-pad" style="padding-bottom: 0px;">
                 <h6>Aid Request:
                     <span class="badge badge-primary"
-                          style="font-size: 14px;">{{ucfirst($current_application->financial_aid_type->name)}}</span>
+                          style="font-size: 16px;">{{ucfirst($current_application->financial_aid_type->name)}}</span>
                 </h6>
             </li>
             <li class="list-group-item no-bottom-pad" style="padding-bottom: 0px;">
@@ -53,15 +53,5 @@
                 </li>
             @endforeach
         </ul>
-        <div class="card-body">
-            {{--<div class="row">--}}
-                {{--<div class="col">--}}
-                    {{--{{$current_application->stage}}--}}
-                {{--</div>--}}
-                {{--<div class="col">--}}
-                    {{----}}
-                {{--</div>--}}
-            {{--</div>--}}
-        </div>
     </div>
 @endsection
