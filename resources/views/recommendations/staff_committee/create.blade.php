@@ -54,7 +54,7 @@
     <br>
     <div class="card">
         <div class="card-header bg-primary text-white">
-            Financial Aid Recommendations
+            Financial Aid Department Comments
         </div>
         <div class="card-body">
             <div class="form-group">
@@ -62,12 +62,6 @@
                     <h6>Comments on the application</h6>
                 </label>
                 <textarea id="commentArea" class="form-control" cols="50" rows="5" readonly>{{$application->financial_aid_recommendation->comments}}</textarea>
-            </div>
-            <div class="form-group">
-                <label for="commentArea">
-                    <h6>Approval Status</h6>
-                </label>
-                <input class="form-control" value="{{$application->financial_aid_recommendation->recommendation}}" readonly>
             </div>
         </div>
     </div>

@@ -18,17 +18,11 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->integer('role_id')->unsigned()->default('1');
             $table->rememberToken();
             $table->timestamps();
+            $table->foreign('role_id')->references('id')->on('roles');
         });
-
-        // Trigger to update application stage to "review".
-        DB::unprepared('
-        CREATE TRIGGER tr_ASSIGN_USER_ROLE AFTER INSERT ON `users` FOR EACH ROW
-            BEGIN
-             INSERT INTO roles (user_id) VALUES (NEW.id);
-            END
-        ');
     }
 
     /**
@@ -39,7 +33,5 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
-        DB::unprepared('DROP TRIGGER `tr_ASSIGN_USER_ROLE`');
-
     }
 }

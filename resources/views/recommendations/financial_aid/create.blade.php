@@ -66,16 +66,6 @@
                     </label>
                     <textarea id="commentArea" class="form-control" cols="50" rows="5" name="comments"></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="commentArea">
-                        <h6>Approval Status</h6>
-                    </label>
-                    <select name="recommendation" id="" class="form-control">
-                        <option selected>Select One</option>
-                        <option value="accepted">Accept</option>
-                        <option value="rejected">Reject</option>
-                    </select>
-                </div>
                 <input type="hidden" value="{{$application->id}}" name="application_id">
                 <input type="hidden" value="{{$application->financial_aid_type->id}}" name="financial_aid_type_id">
                 <button type="submit" class="btn btn-primary">Submit</button>

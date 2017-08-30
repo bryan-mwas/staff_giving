@@ -17,13 +17,13 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', function () {
-    return $apps = Application::all()->count();
+    return redirect('/login');
 });
 
 Route::get('/applications/create','ApplicationsController@create');
 Route::get('/applications/{user}','ApplicationsController@show');
 Route::post('/applications','ApplicationsController@store');
-Route::get('/applications', 'ApplicationRecommendationsController@index');
+Route::get('/applications', 'ApplicationsController@index');
 
 Route::get('/financial-aid/recommend/{application}', 'FinancialAidRecommendationsController@show');  // Route model binding! Yayy!
 Route::post('/financial-aid/recommend','FinancialAidRecommendationsController@store');

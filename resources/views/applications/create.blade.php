@@ -27,15 +27,18 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="col-form-label" for="fundType">
+                            <h6>Have you applied for any kind of financial aid before? <i>(Optional)</i></h6>
+                        </label>
                         <table class="table table-bordered table-sm">
                             <thead>
                                 <th>Name</th>
                                 <th>Granted</th>
-                                <th>Upload Attachment <span style="font-style: italic">(If Any)</span></th>
+                                <th>Upload Attachment</th>
                             </thead>
                             @foreach($application_types as $previous)
                             <tr>
-                                <td>{{$previous->name}}</td>
+                                <td>{{ucfirst($previous->name)}}</td>
                                 <td>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">

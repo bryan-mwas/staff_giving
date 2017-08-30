@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Application;
 use App\FinancialAidRecommendation;
-use App\FinancialAidType;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -48,23 +46,20 @@ class FinancialAidRecommendationsController extends Controller
         ]);
 
         $application_review = new FinancialAidRecommendation;
-        $financial_aid_type = FinancialAidType::findOrFail($request->financial_aid_type_id);
+//        $financial_aid_type = FinancialAidType::findOrFail($request->financial_aid_type_id);
+        // The date of effectivity is done programmatically.
+//        $application_review->effective_date = Carbon::now()->addWeek()->toDateString();
+//        $application_review->expiry_date = Carbon::now()->addMonths($financial_aid_type->months_valid)->toDateString();
 
         $application_review->application_id = $request->application_id;
         $application_review->comments = $request->comments;
-        $application_review->recommendation = $request->recommendation;
-        $application_review->is_accommodation = 0;
-        $application_review->user_id = 2;
-
-        // The date of effectivity is done programmatically.
-        $application_review->effective_date = Carbon::now()->addWeek()->toDateString();
-        $application_review->expiry_date = Carbon::now()->addMonths($financial_aid_type->months_valid)->toDateString();
+        $application_review->user_id = Auth::id();
 
         $application_review->save();
 
         $request->session()->flash('success_message', 'The recommendation has been saved successfully');
 
-        return redirect()->back();
+        return redirect('/applications');
     }
 
     /**

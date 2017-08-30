@@ -45,5 +45,17 @@ class FinancialAidTypesTableSeeder extends Seeder
         DB::table('application_types')->insert([
             'name' => 'workstudy'
         ]);
+
+        DB::table('roles')->insert([
+            'name' => 'student'
+        ]);
+
+        DB::table('roles')->insert([
+            'name' => 'staff'
+        ]);
+
+        DB::table('roles')->insert([
+            'name' => 'admin'
+        ]);
     }
 }

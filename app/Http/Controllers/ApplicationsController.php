@@ -15,14 +15,21 @@ class ApplicationsController extends Controller
     // One has to be logged in.
     public function __construct()
     {
-//        $this->middleware('auth');
+        $this->middleware('auth');
+        // Only admins and staff can access this controller
+        $this->middleware(function ($request, $next) {
+            if (Auth::user() && (Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'staff')) {
+                return $next($request);
+            }
+
+            return redirect('/');
+        })->except(['create', 'store', 'show']);
     }
 
     public function index()
     {
         $applications = Application::all();
-        $data = $applications->load('user', 'review');    // Get the applicant and review of each application
-        return View('applications.index', compact('data'));
+        return View('applications.index', compact('applications'));
     }
 
     public function show(User $user)
@@ -32,14 +39,23 @@ class ApplicationsController extends Controller
 //        return $previous_applications;
 //        $applications = Application::all();
 //        $data = $applications->load('user', 'review');    // Get the applicant and review of each application
-        return View('applications.show', compact('current_application','previous_applications'));
+        return View('applications.show', compact('current_application', 'previous_applications'));
     }
 
     public function create()
     {
         $financial_aid_types = FinancialAidType::all();
         $application_types = ApplicationType::all();
-        return View('applications.create', compact('financial_aid_types', 'application_types'));
+//        return Auth::user()->application;
+        if (Auth::user()->application != null) {
+            $app_attempt = Auth::user()->application->where('user_id', Auth::id())->count();
+            // If you've made an attempt. Show previous application details.
+            if ($app_attempt > 0) {
+                return redirect('/applications/' . Auth::id());
+            }
+        } else {
+            return View('applications.create', compact('financial_aid_types', 'application_types'));
+        }
     }
 
     /**
@@ -135,7 +151,7 @@ class ApplicationsController extends Controller
                     if ($request->hasFile($path)) {
                         $application_file = $request->file($path);
                         $application_ext = $application_file->getClientOriginalExtension();
-                        $application_path = $application_file->storeAs('uploads/'.$type->name, $type->name.'-'.$auth_user->id.'.'. $application_ext); // Tested - It works: 23-08-2017 12:27 pm
+                        $application_path = $application_file->storeAs('uploads/' . $type->name, $type->name . '-' . $auth_user->id . '.' . $application_ext); // Tested - It works: 23-08-2017 12:27 pm
 
                         // create a new instance of the Auxiliary Applications
                         $auxiliary_application = new AuxiliaryApplication;
@@ -158,7 +174,7 @@ class ApplicationsController extends Controller
         if ($request->hasFile('application_upload')) {
             $application_file = $request->file('application_upload');
             $application_ext = $application_file->getClientOriginalExtension();
-            $application_path = $application_file->storeAs('uploads/application', 'application-'.$auth_user->id.'.'. $application_ext);
+            $application_path = $application_file->storeAs('uploads/application', 'application-' . $auth_user->id . '.' . $application_ext);
         }
 
         $application->application_letter = $application_path;
@@ -166,7 +182,7 @@ class ApplicationsController extends Controller
 
         $request->session()->flash('success_message', 'The application was successful!');
 
-        return redirect()->back();
+        return redirect('/applications/' . Auth::id());
 
 //        if(array_key_exists('is_crb', $request->all())) {
 //            //key exists, do stuff
