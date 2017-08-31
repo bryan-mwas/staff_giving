@@ -29,6 +29,7 @@ class ApplicationsController extends Controller
     public function index()
     {
         $applications = Application::all();
+//        return $applications;
         return View('applications.index', compact('applications'));
     }
 

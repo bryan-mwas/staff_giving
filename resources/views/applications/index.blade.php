@@ -3,7 +3,7 @@
 @section('title', 'Applications View')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.0/css/buttons.dataTables.min.css" type="text/css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.0/css/buttons.dataTables.min.css" type="text/css"/>
 @section('styles')
     <style>
         .tab-btm-margin {
@@ -20,7 +20,7 @@
                 <div class="card-header" role="tab" id="headingOne">
                     <h5 class="mb-0">
                         <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Accepted
+                            New Applications
                         </a>
                     </h5>
                 </div>
@@ -54,7 +54,8 @@
                     </div>
                 </div>
             </div>
-        @elseif(Auth::user()->role->name == 'admin')
+        @endif
+        @if(Auth::user()->role->name == 'admin')
             <div class="card">
                 <div class="card-header" role="tab" id="headingTwo">
                     <h5 class="mb-0">
@@ -93,7 +94,7 @@
                     </div>
                 </div>
             </div>
-
+            @endif
             <div class="card">
                 <div class="card-header" role="tab" id="headingThree">
                     <h5 class="mb-0">
@@ -112,6 +113,8 @@
                                 <th>Student ID</th>
                                 <th>Student name</th>
                                 <th>Request</th>
+                                <th>Comments</th>
+                                <th>Date of Application</th>
                                 {{--<th>Action</th>--}}
                             </tr>
                             </thead>
@@ -122,6 +125,8 @@
                                         <td>{{$application->user->id}}</td>
                                         <td>{{$application->user->name}}</td>
                                         <td>{{$application->financial_aid_type->name}}</td>
+                                        <td>{{$application->staff_committee_recommendation->comments}}</td>
+                                        <td>{{date('Y-m-d', strtotime($application->created_at))}}</td>
                                         {{--<td><a class="btn btn-primary btn-sm"--}}
                                         {{--href="{{url('/committee/recommend/'.$application->id)}}">Assess</a>--}}
                                         {{--</td>--}}
@@ -147,12 +152,14 @@
                 <div id="collapseFour" class="collapse show" role="tabpanel" aria-labelledby="headingFour"
                      data-parent="#accordion">
                     <div class="card-body">
-                        <table id="tbl-unseen-applications" class="table table-bordered" cellspacing="0" width="100%">
+                        <table id="tbl-rejected-applications" class="table table-bordered" cellspacing="0" width="100%">
                             <thead>
                             <tr>
                                 <th>Student ID</th>
                                 <th>Student name</th>
                                 <th>Request</th>
+                                <th>Comments</th>
+                                <th>Date of Application</th>
                                 {{--<th>Action</th>--}}
                             </tr>
                             </thead>
@@ -163,6 +170,8 @@
                                         <td>{{$application->user->id}}</td>
                                         <td>{{$application->user->name}}</td>
                                         <td>{{$application->financial_aid_type->name}}</td>
+                                        <td>{{$application->staff_committee_recommendation->comments}}</td>
+                                        <td>{{date('Y-m-d', strtotime($application->created_at))}}</td>
                                         {{--<td><a class="btn btn-primary btn-sm"--}}
                                         {{--href="{{url('/committee/recommend/'.$application->id)}}">Assess</a>--}}
                                         {{--</td>--}}
@@ -174,7 +183,6 @@
                     </div>
                 </div>
             </div>
-        @endif
 
     </div>
 
@@ -200,12 +208,37 @@
             $('#tbl-accepted-applications').DataTable({
                 dom: 'Blfrtip',
                 buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
+//                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    {
+                        extend: 'copyHtml5',
+                        title: 'Accepted Applications'
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Accepted Applications'
+                    },
+                    {
+                        extend: 'pdfHtml5', title: 'Accepted Applications'
+                    }
                 ],
-                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 responsive: true
             });
             $('#tbl-rejected-applications').DataTable({
+                dom: 'Blfrtip',
+                buttons: [
+//                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    {
+                        extend: 'copyHtml5',
+                        title: 'Rejected Applications'
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Rejected Applications'
+                    },
+                    {
+                        extend: 'pdfHtml5', title: 'Rejected Applications'
+                    }
+                ],
                 responsive: true
             });
             $('#tbl-unseen-applications').DataTable({
