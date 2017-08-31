@@ -3,6 +3,7 @@
 @section('title', 'Applications View')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.0/css/buttons.dataTables.min.css" type="text/css" />
 @section('styles')
     <style>
         .tab-btm-margin {
@@ -105,7 +106,7 @@
                 <div id="collapseThree" class="collapse show" role="tabpanel" aria-labelledby="headingThree"
                      data-parent="#accordion">
                     <div class="card-body">
-                        <table id="tbl-unseen-applications" class="table table-bordered" cellspacing="0" width="100%">
+                        <table id="tbl-accepted-applications" class="table table-bordered" cellspacing="0" width="100%">
                             <thead>
                             <tr>
                                 <th>Student ID</th>
@@ -157,7 +158,7 @@
                             </thead>
                             <tbody>
                             @foreach($applications as $application)
-                                @if($application->stage == 'complete' && $application->staff_committee_recommendation->recommendation == 'accepted')
+                                @if($application->stage == 'complete' && $application->staff_committee_recommendation->recommendation == 'rejected')
                                     <tr>
                                         <td>{{$application->user->id}}</td>
                                         <td>{{$application->user->name}}</td>
@@ -179,16 +180,29 @@
 
 @endsection
 @section('footer')
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.4.js"></script>
     <script type="application/javascript"
             src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>
+    <script type="text/javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/buttons/1.4.0/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/buttons/1.4.0/js/buttons.print.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#tbl-new-applications').DataTable({
                 responsive: true
             });
             $('#tbl-accepted-applications').DataTable({
+                dom: 'Blfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ],
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 responsive: true
             });
             $('#tbl-rejected-applications').DataTable({

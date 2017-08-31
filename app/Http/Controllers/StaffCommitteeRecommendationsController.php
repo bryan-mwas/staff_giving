@@ -52,7 +52,7 @@ class StaffCommitteeRecommendationsController extends Controller
         $application_review->comments = $request->comments;
         $application_review->recommendation = $request->recommendation;
         $application_review->application_id = $request->application_id;
-        $application_review->user_id = 2;
+        $application_review->user_id = Auth::id();
 
         // The date of effectivity is done programmatically.
 //        $application_review->effective_date = Carbon::now()->addWeek()->toDateString();

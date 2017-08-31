@@ -28,7 +28,7 @@ class User extends Authenticatable
     ];
 
     public function application() {
-        return $this->hasOne(Application::class);
+        return $this->hasMany(Application::class);
     }
 
     public function auxiliary_application() {
@@ -51,18 +51,5 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
-    }
-
-    public function hasRole($roleName)
-    {
-        foreach ($this->role()->get() as $role)
-        {
-            if ($role->name == $roleName)
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 }
