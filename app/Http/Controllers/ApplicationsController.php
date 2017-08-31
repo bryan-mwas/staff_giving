@@ -47,16 +47,7 @@ class ApplicationsController extends Controller
     {
         $financial_aid_types = FinancialAidType::all();
         $application_types = ApplicationType::all();
-//        return Auth::user()->application;
-        if (Auth::user()->application != null) {
-            $app_attempt = Auth::user()->application->where('user_id', Auth::id())->count();
-            // If you've made an attempt. Show previous application details.
-            if ($app_attempt > 0) {
-                return redirect('/applications/' . Auth::id());
-            }
-        } else {
-            return View('applications.create', compact('financial_aid_types', 'application_types'));
-        }
+        return View('applications.create', compact('financial_aid_types', 'application_types'));
     }
 
     /**
