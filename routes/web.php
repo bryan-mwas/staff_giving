@@ -20,6 +20,8 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
+Route::get('/redirect', 'RedirectsController@index');
+
 Route::get('/applications/create','ApplicationsController@create');
 Route::get('/applications/{user}','ApplicationsController@show');
 Route::post('/applications','ApplicationsController@store');
