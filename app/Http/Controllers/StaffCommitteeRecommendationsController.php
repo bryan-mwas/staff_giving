@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Application;
-use App\FinancialAidRecommendation;
 use App\FinancialAidType;
 use App\StaffCommitteeRecommendation;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StaffCommitteeRecommendationsController extends Controller
 {
@@ -62,7 +61,7 @@ class StaffCommitteeRecommendationsController extends Controller
 
         $request->session()->flash('success_message', 'The recommendation has been saved successfully');
 
-        return redirect()->back();
+        return redirect()->to('/applications');
     }
 
     /**

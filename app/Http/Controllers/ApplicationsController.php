@@ -58,74 +58,8 @@ class ApplicationsController extends Controller
     public function store(Request $request)
     {
 //        TODO: Shorten the length pdf/docx validation rule
-//        Validate the form fields
-//        $this->validate($request, [
-//            'aid_id' => 'required',
-//            'helb' => 'required',
-//            'helb_status' => 'required',
-//            'crb' => 'required',
-//            'crb_status' => 'required',
-//            'application_upload' => 'required',
-//        ]);
-
-//        $application = new Application;
         $auth_user = Auth::user();
-//
-//        $helb_path = null;
-//        $crb_path = null;
-//        $application_path = null;
-//
-//        if ($request->hasFile('helb_upload')) {
-//            $helb = $request->file('helb_upload');
-//            $helb_ext = $helb->getClientOriginalExtension();    // Safe type value. Extracted from the request from which the file's uploaded
-//            $helb_path = $helb->storeAs('/uploads/helb', $auth_user->id . '-helb.' . $helb_ext);
-//        }
-//
-//        if ($request->hasFile('crb_upload')) {
-//            $crb = $request->file('crb_upload');
-//            $crb_ext = $crb->getClientOriginalExtension();
-//            $crb_path = $crb->storeAs('uploads/crb', $auth_user->id . '-crb.' . $crb_ext);
-//        }
-//
-//
-//        if ($request->hasFile('application_upload')) {
-//            $application_file = $request->file('application_upload');
-//            $application_ext = $application_file->getClientOriginalExtension();
-//            $application_path = $application_file->storeAs('uploads/application', $auth_user->id . '-application.' . $application_ext);
-//        }
-//
-//
-//        $application->user_id = $auth_user->id;
-//        $application->aid_id = $request->aid_id;
-//        $application->helb = $request->helb;
-//        $application->helb_status = $request->helb_status;
-//        $application->helb_upload = $helb_path;
-//        $application->crb = $request->crb;
-//        $application->crb_status = $request->crb_status;
-//        $application->crb_upload = $crb_path;
-//        $application->application_upload = $application_path;
-//
-//        $application->save();
-//
-//        $request->session()->flash('success_message', 'The application was successful!');
-//
-//        return redirect('applications');
-//
-//        foreach($request->all() as $key => $value) {
-//            echo $key.' ';
-////                if(substr($key,0,-7) == substr($key,3)) {
-////                    echo 'Aye';
-////                }
-//        }
-//
-//        foreach ($app_type as $type) {
-//            echo $type->name;
-//        }
-//        $length = count($app_type);
-//        for ($i = 0; $i < $length; $i++) {
-//            echo $app_type->name;
-//        }
-//        return $request->all();
+
         $app_type = ApplicationType::all();
         foreach ($app_type as $type) {
             // append the name of application type.
@@ -143,7 +77,8 @@ class ApplicationsController extends Controller
                     if ($request->hasFile($path)) {
                         $application_file = $request->file($path);
                         $application_ext = $application_file->getClientOriginalExtension();
-                        $application_path = $application_file->storeAs('uploads/' . $type->name, $type->name . '-' . $auth_user->id . '.' . $application_ext); // Tested - It works: 23-08-2017 12:27 pm
+                        $application_path = $application_file
+                            ->storeAs('uploads/' . $type->name, $type->name . '-' . $auth_user->id . '.' . $application_ext);// Tested - It works: 23-08-2017 12:27 pm
 
                         // create a new instance of the Auxiliary Applications
                         $auxiliary_application = new AuxiliaryApplication;
@@ -155,7 +90,6 @@ class ApplicationsController extends Controller
                 } else {
                     echo "NULL: " . $application_type;
                 }
-//                return $request->$path;
             }
         }
 
@@ -175,18 +109,5 @@ class ApplicationsController extends Controller
         $request->session()->flash('success_message', 'The application was successful!');
 
         return redirect('/applications/' . Auth::id());
-
-//        if(array_key_exists('is_crb', $request->all())) {
-//            //key exists, do stuff
-//            print 'Kuna kitu';
-//        }
-//        if(array_key_exists('is_helb', $request->all())) {
-//            print "\n"."Yeah";
-//        }
-//
-//        foreach( $request->all() as $key => $value) {
-//            echo $key. " => ". $value. "" ;
-//        }
-//        echo substr('crb_upload',0,-7);
     }
 }
